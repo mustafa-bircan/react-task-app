@@ -2,8 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import './LoginPage.css'; // CSS dosyasını import ettik
-
+import './LoginPage.css'; 
 const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();

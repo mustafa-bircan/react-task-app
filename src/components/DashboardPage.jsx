@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify'; // Toast importu
-import 'react-toastify/dist/ReactToastify.css'; // CSS
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -29,9 +29,9 @@ const DashboardPage = () => {
   const addTask = (data) => {
     const newTask = { ...data, id: tasks.length + 1, completed: false };
     setTasks([newTask, ...tasks]);
-    reset(); // Formu sıfırlıyoruz
+    reset(); 
 
-    // Form sıfırlanırsa, checkbox ve hata mesajlarını temizliyoruz
+  
     setAssignedPersonnels([]);
     setErrorMessage('');
 
@@ -73,11 +73,11 @@ const DashboardPage = () => {
 
   useEffect(() => {
     if (isValid) {
-      setErrorMessage('');  // Hata mesajlarını temizle
+      setErrorMessage('');  
     }
   }, [taskName, description, assignedPersonnels]);
 
-  // Yapılacaklar kısmı boş mu kontrolü
+
   const isTasksEmpty = tasks.length === 0;
 
   return (
@@ -148,7 +148,6 @@ const DashboardPage = () => {
         <button onClick={handleNewPersonel}>Ekle</button>
       </div>
 
-      {/* Yapılacaklar kısmı boşsa görünmesin */}
       {!isTasksEmpty && (
         <div>
           <h3>Yapılacaklar (Görevler)</h3>

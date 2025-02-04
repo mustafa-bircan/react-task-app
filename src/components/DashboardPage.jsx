@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './DashboardPage.css'; // CSS dosyasını ekledik
 
 const DashboardPage = () => {
   const navigate = useNavigate();
@@ -30,17 +31,13 @@ const DashboardPage = () => {
     const newTask = { ...data, id: tasks.length + 1, completed: false };
     setTasks([newTask, ...tasks]);
     reset(); 
-
-  
     setAssignedPersonnels([]);
     setErrorMessage('');
-
-    toast.success('Görev Eklemen Başarılı Şekilde Gerçekleşmiştir!');
+    toast.success('Görev ekleme başarılı!');
   };
 
   const handleCheckboxChange = (e) => {
     const { checked, value } = e.target;
-
     if (checked) {
       if (assignedPersonnels.length < 3) {
         setAssignedPersonnels([...assignedPersonnels, value]);
@@ -66,113 +63,98 @@ const DashboardPage = () => {
   const handleCompleteTask = (taskId) => {
     const taskToComplete = tasks.find(task => task.id === taskId);
     setCompletedTasks([taskToComplete, ...completedTasks]);
-
-    const updatedTasks = tasks.filter(task => task.id !== taskId);
-    setTasks(updatedTasks);
+    setTasks(tasks.filter(task => task.id !== taskId));
   };
 
   useEffect(() => {
     if (isValid) {
-      setErrorMessage('');  
+      setErrorMessage('');
     }
   }, [taskName, description, assignedPersonnels]);
-
 
   const isTasksEmpty = tasks.length === 0;
 
   return (
-    <div>
-      <h2>Admin Paneli</h2>
-      <form onSubmit={handleSubmit(addTask)}>
-        <div>
+    <div className="dashboard-container">
+      <h2 className="dashboard-title">Admin Paneli</h2>
+
+      <form onSubmit={handleSubmit(addTask)} className="task-form">
+        <div className="form-group">
           <label>Görev Adı</label>
           <input
             type="text"
             {...register('taskName', {
               required: 'Görev adı gerekli',
-              minLength: {
-                value: 3,
-                message: 'Görev adı en az 3 karakter olmalı',
-              },
+              minLength: { value: 3, message: 'En az 3 karakter olmalı' },
             })}
           />
-          {errors.taskName && <p>{errors.taskName.message}</p>}
+          {errors.taskName && <p className="error-message">{errors.taskName.message}</p>}
         </div>
 
-        <div>
+        <div className="form-group">
           <label>Açıklama</label>
           <input
             type="text"
             {...register('description', {
               required: 'Açıklama gerekli',
-              minLength: {
-                value: 10,
-                message: 'Açıklama en az 10 karakter olmalı',
-              },
+              minLength: { value: 10, message: 'En az 10 karakter olmalı' },
             })}
           />
-          {errors.description && <p>{errors.description.message}</p>}
+          {errors.description && <p className="error-message">{errors.description.message}</p>}
         </div>
 
-        <div>
+        <div className="form-group">
           <label>Atanacak Personel</label>
-          <div>
+          <div className="checkbox-group">
             {employees.map((employee, index) => (
-              <label key={index}>
-                <input
-                  type="checkbox"
-                  value={employee}
-                  onChange={handleCheckboxChange}
-                />
+              <label key={index} className="checkbox-label">
+                <input type="checkbox" value={employee} onChange={handleCheckboxChange} />
                 {employee}
               </label>
             ))}
           </div>
-          {assignedPersonnels.length === 0 && <p>Lütfen en az bir kişi seçin</p>}
-          {errorMessage && <p>{errorMessage}</p>}
+          {assignedPersonnels.length === 0 && <p className="error-message">Lütfen en az bir kişi seçin</p>}
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
 
-        <div>
-          <button type="submit" disabled={!isFormValid}>Görev Ekle</button>
-        </div>
+        <button type="submit" disabled={!isFormValid} className="submit-button">Görev Ekle</button>
       </form>
 
-      <div>
+      <div className="personel-container">
         <h3>Yeni Personel Ekle</h3>
         <input
           type="text"
           value={newPersonel}
           onChange={(e) => setNewPersonel(e.target.value)}
           placeholder="Yeni personel adı"
+          className="input-field"
         />
-        <button onClick={handleNewPersonel}>Ekle</button>
+        <button onClick={handleNewPersonel} className="add-button">Ekle</button>
       </div>
 
       {!isTasksEmpty && (
-        <div>
+        <div className="tasks-container">
           <h3>Yapılacaklar (Görevler)</h3>
-          <ul>
+          <ul className="task-list">
             {tasks.map(task => (
-              <li key={task.id}>
+              <li key={task.id} className="task-item">
                 {task.taskName} - {task.description}
-                <button onClick={() => handleCompleteTask(task.id)}>Tamamlandı</button>
+                <button onClick={() => handleCompleteTask(task.id)} className="complete-button">Tamamlandı</button>
               </li>
             ))}
           </ul>
-          <button onClick={() => navigate('/tasks', { state: { tasks } })}>Tamamını Gör</button>
+          <button onClick={() => navigate('/tasks', { state: { tasks } })} className="view-button">Tamamını Gör</button>
         </div>
       )}
 
-      <div>
+      <div className="completed-container">
         <h3>Tamamlananlar</h3>
-        <ul>
+        <ul className="completed-list">
           {completedTasks.map(task => (
-            <li key={task.id}>
-              {task.taskName} - {task.description}
-            </li>
+            <li key={task.id} className="completed-item">{task.taskName} - {task.description}</li>
           ))}
         </ul>
-        <button onClick={() => navigate('/completed-tasks', { state: { completedTasks } })}>Tamamını Gör</button>
+        <button onClick={() => navigate('/completed-tasks', { state: { completedTasks } })} className="view-button">Tamamını Gör</button>
       </div>
 
       <ToastContainer />

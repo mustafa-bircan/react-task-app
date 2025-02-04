@@ -1,0 +1,145 @@
+.dashboard-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .dashboard-title {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+  }
+  
+ 
+  .task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  .form-group input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+
+  .submit-button,
+  .add-button,
+  .complete-button,
+  .view-button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    color: white;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .submit-button {
+    background: #28a745;
+  }
+  
+  .submit-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .add-button {
+    background: #007bff;
+  }
+  
+  .complete-button {
+    background: #17a2b8;
+  }
+  
+  .view-button {
+    background: #6c757d;
+  }
+  
+  .submit-button:hover:not(:disabled),
+  .add-button:hover,
+  .complete-button:hover,
+  .view-button:hover {
+    opacity: 0.8;
+  }
+  
+
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+
+  .tasks-container,
+  .completed-container {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    background: #f8f9fa;
+  }
+  
+  .task-list,
+  .completed-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .task-item,
+  .completed-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .task-item:last-child,
+  .completed-item:last-child {
+    border-bottom: none;
+  }
+  
+
+  .personel-container {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .input-field {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1;
+  }
+  
